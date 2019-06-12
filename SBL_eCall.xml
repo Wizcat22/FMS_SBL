@@ -55,8 +55,19 @@
         <init ref="id9"/>
     </template>
     <system>// Place template instantiations here.
-Process = Template();
+eCallUnit_1 = eCallUnit_P1();
+eCallUnit_2 = eCallUnit_P2();
+eCallUnit_3 = eCallUnit_P3();
+eCallUnit_4 = eCallUnit_P4();
+MobileDeviceRegistrationUnit_1 = MobileDeviceRegistrationUnit();
+DisplayUnit_1 = DisplayUnit();
+MobileDevice_1 = MobileDevice();
+MobileDevice_2 = MobileDevice();
+MobileDevice_3 = MobileDevice();
+GPS_1 = GPS();
+CrashDetectionUnit_1 = CrashDetectionUnit();
+EmergencyCallCenter_1 = EmergencyCallCenter();
 
 // List one or more processes to be composed into a system.
-system Process;</system>
+system eCallUnit_1,eCallUnit_2,eCallUnit_3,eCallUnit_4,MobileDeviceRegistrationUnit_1,DisplayUnit_1,MobileDevice_1,MobileDevice_2,MobileDevice_3,GPS_1,CrashDetectionUnit_1,EmergencyCallCenter_1;</system>
 </nta>

@@ -1,7 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?><!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_1.dtd'><nta><declaration>// Place global declarations here.
-</declaration><template><name x="5" y="5">eCallUnit_P1</name><declaration>
-</declaration><location id="id0" x="16" y="-40"></location><init ref="id0"/></template><template><name>eCallUnit_P2</name><location id="id1" x="0" y="0"></location><init ref="id1"/></template><template><name>eCallUnit_P3</name><location id="id2" x="0" y="0"></location><init ref="id2"/></template><template><name>eCallUnit_P4</name><location id="id3" x="0" y="0"></location><init ref="id3"/></template><template><name>MobileDeviceRegistrationUnit</name><location id="id4" x="0" y="0"></location><init ref="id4"/></template><template><name>DisplayUnit</name><location id="id5" x="0" y="0"></location><init ref="id5"/></template><template><name>MobileDevice</name><location id="id6" x="0" y="0"></location><init ref="id6"/></template><template><name>GPS</name><location id="id7" x="0" y="0"></location><init ref="id7"/></template><template><name>CrashDetectionUnit</name><location id="id8" x="0" y="0"></location><init ref="id8"/></template><template><name>EmergencyCallCenter</name><location id="id9" x="0" y="0"></location><init ref="id9"/></template><system>// Place template instantiations here.
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_1.dtd'>
+<nta>
+    <declaration>// Place global declarations here.
+    </declaration>
+    <template>
+        <name x="5" y="5">eCallUnit_P1</name>
+        <declaration>
+        </declaration>
+        <location id="id0" x="16" y="-40"></location>
+        <init ref="id0"/>
+    </template>
+    <template>
+        <name>eCallUnit_P2</name>
+        <location id="id1" x="0" y="0"></location>
+        <init ref="id1"/>
+    </template>
+    <template>
+        <name>eCallUnit_P3</name>
+        <location id="id2" x="0" y="0"></location>
+        <init ref="id2"/>
+    </template>
+    <template>
+        <name>eCallUnit_P4</name>
+        <location id="id3" x="0" y="0"></location>
+        <init ref="id3"/>
+    </template>
+    <template>
+        <name>MobileDeviceRegistrationUnit</name>
+        <location id="id4" x="0" y="0"></location>
+        <init ref="id4"/>
+    </template>
+    <template>
+        <name>DisplayUnit</name>
+        <location id="id5" x="0" y="0"></location>
+        <init ref="id5"/>
+    </template>
+    <template>
+        <name>MobileDevice</name>
+        <location id="id6" x="0" y="0"></location>
+        <init ref="id6"/>
+    </template>
+    <template>
+        <name>GPS</name>
+        <location id="id7" x="0" y="0"></location>
+        <init ref="id7"/>
+    </template>
+    <template>
+        <name>CrashDetectionUnit</name>
+        <location id="id8" x="0" y="0"></location>
+        <init ref="id8"/>
+    </template>
+    <template>
+        <name>EmergencyCallCenter</name>
+        <location id="id9" x="0" y="0"></location>
+        <init ref="id9"/>
+    </template>
+    <system>// Place template instantiations here.
 Process = Template();
 
 // List one or more processes to be composed into a system.
-system Process;</system></nta>
+system Process;</system>
+</nta>

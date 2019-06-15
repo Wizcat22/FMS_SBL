@@ -1,73 +1,317 @@
-<?xml version="1.0" encoding="utf-8"?><!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_1.dtd'>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
 <nta>
-    <declaration>// Place global declarations here.
+	<declaration>// Place global declarations here.
     </declaration>
-    <template>
-        <name x="5" y="5">eCallUnit_P1</name>
-        <declaration>
+	<template>
+		<name x="5" y="5">eCallUnit_P1</name>
+		<declaration>
         </declaration>
-        <location id="id0" x="16" y="-40"></location>
-        <init ref="id0"/>
-    </template>
-    <template>
-        <name>eCallUnit_P2</name>
-        <location id="id1" x="0" y="0"></location>
-        <init ref="id1"/>
-    </template>
-    <template>
-        <name>eCallUnit_P3</name>
-        <location id="id2" x="0" y="0"></location>
-        <init ref="id2"/>
-    </template>
-    <template>
-        <name>eCallUnit_P4</name>
-        <location id="id3" x="0" y="0"></location>
-        <init ref="id3"/>
-    </template>
-    <template>
-        <name>MobileDeviceRegistrationUnit</name>
-        <location id="id4" x="0" y="0"></location>
-        <init ref="id4"/>
-    </template>
-    <template>
-        <name>DisplayUnit</name>
-        <location id="id5" x="0" y="0"></location>
-        <init ref="id5"/>
-    </template>
-    <template>
-        <name>MobileDevice</name>
-        <location id="id6" x="0" y="0"></location>
-        <init ref="id6"/>
-    </template>
-    <template>
-        <name>GPS</name>
-        <location id="id7" x="0" y="0"></location>
-        <init ref="id7"/>
-    </template>
-    <template>
-        <name>CrashDetectionUnit</name>
-        <location id="id8" x="0" y="0"></location>
-        <init ref="id8"/>
-    </template>
-    <template>
-        <name>EmergencyCallCenter</name>
-        <location id="id9" x="0" y="0"></location>
-        <init ref="id9"/>
-    </template>
-    <system>// Place template instantiations here.
+		<location id="id0" x="16" y="-40">
+		</location>
+		<init ref="id0"/>
+	</template>
+	<template>
+		<name>eCallUnit_P2</name>
+		<location id="id1" x="0" y="0">
+		</location>
+		<init ref="id1"/>
+	</template>
+	<template>
+		<name>eCallUnit_P3</name>
+		<location id="id2" x="0" y="0">
+		</location>
+		<init ref="id2"/>
+	</template>
+	<template>
+		<name>eCallUnit_P4</name>
+		<location id="id3" x="0" y="0">
+		</location>
+		<init ref="id3"/>
+	</template>
+	<template>
+		<name>MobileDeviceRegistrationUnit</name>
+		<parameter>chan &amp;connect, chan &amp;bl_pin, bool &amp;connection_open, chan &amp;disconnect, chan &amp;empty_warning, broadcast chan &amp;warning</parameter>
+		<declaration>clock clk_MDR;
+int num_dev;</declaration>
+		<location id="id4" x="-229" y="0">
+			<name x="-239" y="-34">idle</name>
+		</location>
+		<location id="id5" x="34" y="0">
+			<name x="24" y="-34">ready</name>
+		</location>
+		<location id="id6" x="-229" y="-144">
+			<name x="-239" y="-178">wait_bl_pin</name>
+		</location>
+		<location id="id7" x="280" y="0">
+		</location>
+		<init ref="id4"/>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="127" y="-34">warning!</label>
+			<nail x="195" y="-8"/>
+			<nail x="110" y="-8"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="102" y="8">empty_warning?</label>
+			<nail x="110" y="8"/>
+			<nail x="195" y="8"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-144" y="-34">num_dev &lt;= 0</label>
+			<nail x="-25" y="-8"/>
+			<nail x="-178" y="-8"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="51" y="76">disconnect?</label>
+			<label kind="assignment" x="51" y="59">num_dev = num_dev - 1</label>
+			<nail x="102" y="51"/>
+			<nail x="51" y="51"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-314" y="51">num_dev&lt;3</label>
+			<label kind="assignment" x="-339" y="34">connection_open = true</label>
+			<nail x="-280" y="34"/>
+			<nail x="-280" y="0"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id6"/>
+			<label kind="guard" x="-42" y="-170">num_dev&lt;3</label>
+			<label kind="synchronisation" x="-42" y="-187">connect?</label>
+			<nail x="34" y="-144"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id5"/>
+			<label kind="guard" x="-68" y="76">num_dev &lt; 3</label>
+			<label kind="assignment" x="-136" y="59">connection_open = true</label>
+			<nail x="25" y="51"/>
+			<nail x="-35" y="50"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-161" y="-102">bl_pin?</label>
+			<label kind="assignment" x="-161" y="-85">num_dev = num_dev+1</label>
+			<nail x="-170" y="-59"/>
+			<nail x="-8" y="-59"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id6"/>
+			<label kind="guard" x="-314" y="-93">num_dev&lt;3</label>
+			<label kind="synchronisation" x="-297" y="-76">connect?</label>
+			<label kind="assignment" x="-391" y="-59">connection_open = false</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id5"/>
+			<label kind="guard" x="-144" y="17">num_dev &gt; 0</label>
+			<nail x="-187" y="8"/>
+			<nail x="-25" y="8"/>
+		</transition>
+	</template>
+	<template>
+		<name>DisplayUnit</name>
+		<location id="id8" x="0" y="0">
+		</location>
+		<init ref="id8"/>
+	</template>
+	<template>
+		<name>MobileDevice</name>
+		<parameter>chan &amp;call, bool &amp;calling, chan &amp;end_call, chan &amp;connect, chan &amp;bl_pin, bool &amp;connection_open, chan &amp;disconnect, chan &amp;empty_warning</parameter>
+		<declaration>clock clk_mobile;
+bool bat_empty;</declaration>
+		<location id="id9" x="-110" y="0">
+			<name x="-120" y="-34">idle</name>
+		</location>
+		<location id="id10" x="42" y="0">
+			<name x="32" y="-34">ready</name>
+		</location>
+		<location id="id11" x="323" y="0">
+			<name x="313" y="-34">connected</name>
+		</location>
+		<location id="id12" x="450" y="0">
+			<name x="440" y="-34">empty</name>
+		</location>
+		<location id="id13" x="323" y="-170">
+			<name x="313" y="-204">sending</name>
+		</location>
+		<location id="id14" x="212" y="0">
+			<name x="202" y="-34">connecting</name>
+		</location>
+		<init ref="id9"/>
+		<transition>
+			<source ref="id14"/>
+			<target ref="id11"/>
+			<label kind="synchronisation" x="246" y="8">bl_pin!</label>
+		</transition>
+		<transition>
+			<source ref="id10"/>
+			<target ref="id14"/>
+			<label kind="guard" x="76" y="8">connection_open</label>
+			<label kind="synchronisation" x="76" y="25">connect!</label>
+		</transition>
+		<transition>
+			<source ref="id13"/>
+			<target ref="id12"/>
+			<label kind="guard" x="442" y="-204">bat_empty</label>
+			<label kind="synchronisation" x="442" y="-187">end_call?</label>
+			<nail x="450" y="-170"/>
+			<nail x="450" y="-119"/>
+		</transition>
+		<transition>
+			<source ref="id13"/>
+			<target ref="id11"/>
+			<label kind="guard" x="221" y="-136">!bat_empty</label>
+			<label kind="synchronisation" x="221" y="-119">end_call?</label>
+			<nail x="212" y="-169"/>
+			<nail x="212" y="-93"/>
+			<nail x="289" y="-93"/>
+		</transition>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id13"/>
+			<label kind="guard" x="357" y="-135">!calling</label>
+			<label kind="synchronisation" x="357" y="-118">call!</label>
+			<nail x="425" y="-93"/>
+			<nail x="348" y="-93"/>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id12"/>
+			<label kind="synchronisation" x="323" y="21">empty_warning!</label>
+			<label kind="assignment" x="323" y="38">bat_empty = true</label>
+		</transition>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id9"/>
+			<label kind="synchronisation" x="-92" y="59">disconnect!</label>
+			<nail x="450" y="76"/>
+			<nail x="-110" y="76"/>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id13"/>
+			<label kind="guard" x="331" y="-85">!calling</label>
+			<label kind="synchronisation" x="331" y="-68">call!</label>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id10"/>
+			<label kind="assignment" x="-93" y="8">bat_empty = false</label>
+		</transition>
+	</template>
+	<template>
+		<name>GPS</name>
+		<parameter>broadcast chan &amp;gps_data</parameter>
+		<declaration>clock clk_gps;</declaration>
+		<location id="id15" x="-102" y="0">
+			<name x="-112" y="-34">idle</name>
+		</location>
+		<location id="id16" x="59" y="0">
+		</location>
+		<init ref="id15"/>
+		<transition>
+			<source ref="id16"/>
+			<target ref="id16"/>
+			<label kind="synchronisation" x="110" y="-8">gps_data!</label>
+			<nail x="101" y="25"/>
+			<nail x="102" y="-17"/>
+		</transition>
+		<transition>
+			<source ref="id16"/>
+			<target ref="id15"/>
+			<label kind="guard" x="-51" y="-42">clk_gps&gt;=10</label>
+			<label kind="assignment" x="-51" y="-59">clk_gps=0</label>
+			<nail x="-17" y="-17"/>
+		</transition>
+		<transition>
+			<source ref="id15"/>
+			<target ref="id16"/>
+			<label kind="assignment" x="-51" y="17">clk_gps=0</label>
+			<nail x="-25" y="17"/>
+		</transition>
+	</template>
+	<template>
+		<name>CrashDetectionUnit</name>
+		<location id="id17" x="0" y="0">
+		</location>
+		<init ref="id17"/>
+	</template>
+	<template>
+		<name>EmergencyCallCenter</name>
+		<parameter>chan &amp;call, bool &amp;calling, chan &amp;end_call</parameter>
+		<declaration>clock clk_ECC;</declaration>
+		<location id="id18" x="-59" y="0">
+			<name x="-69" y="-34">idle</name>
+		</location>
+		<location id="id19" x="51" y="0">
+			<name x="41" y="-34">working</name>
+		</location>
+		<init ref="id18"/>
+		<transition>
+			<source ref="id19"/>
+			<target ref="id18"/>
+			<label kind="guard" x="-42" y="-93">clk_ECC&lt;=10</label>
+			<label kind="synchronisation" x="25" y="-51">end_call!</label>
+			<label kind="assignment" x="-42" y="-110">calling = false</label>
+			<nail x="0" y="-68"/>
+		</transition>
+		<transition>
+			<source ref="id18"/>
+			<target ref="id19"/>
+			<label kind="synchronisation" x="-41" y="-17">call?</label>
+			<label kind="assignment" x="-41" y="0">calling = true,
+clk_ECC = 0</label>
+		</transition>
+	</template>
+	<system>// Shared data
+
+//GPS
+broadcast chan gps_data;
+
+//Mobile &amp; CallCenter
+chan call, end_call;
+bool calling;
+
+//Mobile &amp; DeviceRegistrator
+chan connect, bl_pin, disconnect, empty_warning;
+bool connection_open;
+
+//DeviceRegistrator
+broadcast chan warning;
+
+// Place template instantiations here.
 eCallUnit_1 = eCallUnit_P1();
 eCallUnit_2 = eCallUnit_P2();
 eCallUnit_3 = eCallUnit_P3();
 eCallUnit_4 = eCallUnit_P4();
-MobileDeviceRegistrationUnit_1 = MobileDeviceRegistrationUnit();
+MobileDeviceRegistrationUnit_1 = MobileDeviceRegistrationUnit(connect, bl_pin, connection_open, disconnect, empty_warning, warning);
 DisplayUnit_1 = DisplayUnit();
-MobileDevice_1 = MobileDevice();
-MobileDevice_2 = MobileDevice();
-MobileDevice_3 = MobileDevice();
-GPS_1 = GPS();
+MobileDevice_1 = MobileDevice(call,calling, end_call,connect, bl_pin,connection_open, disconnect, empty_warning);
+MobileDevice_2 = MobileDevice(call,calling, end_call,connect, bl_pin,connection_open, disconnect, empty_warning);
+MobileDevice_3 = MobileDevice(call,calling, end_call,connect, bl_pin,connection_open, disconnect, empty_warning);
+GPS_1 = GPS(gps_data);
 CrashDetectionUnit_1 = CrashDetectionUnit();
-EmergencyCallCenter_1 = EmergencyCallCenter();
+EmergencyCallCenter_1 = EmergencyCallCenter(call,calling, end_call);
 
 // List one or more processes to be composed into a system.
 system eCallUnit_1,eCallUnit_2,eCallUnit_3,eCallUnit_4,MobileDeviceRegistrationUnit_1,DisplayUnit_1,MobileDevice_1,MobileDevice_2,MobileDevice_3,GPS_1,CrashDetectionUnit_1,EmergencyCallCenter_1;</system>
+	<queries>
+		<query>
+			<formula></formula>
+			<comment></comment>
+		</query>
+	</queries>
 </nta>
